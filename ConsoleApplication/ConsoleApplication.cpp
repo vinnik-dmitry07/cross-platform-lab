@@ -30,16 +30,6 @@ int main()
     grid[goal.x_][goal.y_] = 0;
     PrintGrid(grid);
 
-    start.id_ = start.x_ * n + start.y_;
-    start.pid_ = start.x_ * n + start.y_;
-    goal.id_ = goal.x_ * n + goal.y_;
-    start.h_cost_ = abs(start.x_ - goal.x_) + abs(start.y_ - goal.y_);
-    // Make sure start and goal are not obstacles and their ids are correctly
-    // assigned.
-    grid[start.x_][start.y_] = 0;
-    grid[goal.x_][goal.y_] = 0;
-    PrintGrid(grid);
-
     // Store points after algorithm has run
     std::vector<std::vector<int>> main_grid = grid;
 

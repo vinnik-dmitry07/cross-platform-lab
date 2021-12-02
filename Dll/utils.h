@@ -180,6 +180,10 @@ std::vector<Node> GetMotion();
 API void PrintPath(const std::vector<Node>& path_vector, const Node& start_,
     const Node& goal_, std::vector<std::vector<int>>& grid);
 
+
+API void FillPath(const std::vector<Node>& path_vector, const Node& start_,
+    const Node& goal_, std::vector<std::vector<int>>& grid);
+
 /**
  * @brief Prints out the cost for reaching points on the grid in the grid shape
  * @param grid Grid on which algorithm is running

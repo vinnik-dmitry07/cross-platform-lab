@@ -58,7 +58,6 @@ bool checkOutsideBoundary(const Node& node, const int n) {
 
 
 bool compare_cost::operator()(const Node& p1, const Node& p2) const {
-    // Can modify this to allow tie breaks based on heuristic cost if required
     return p1.cost_ + p1.h_cost_ > p2.cost_ + p2.h_cost_ ||
         (p1.cost_ + p1.h_cost_ == p2.cost_ + p2.h_cost_ &&
             p1.h_cost_ > p2.h_cost_);
@@ -132,6 +131,31 @@ void PrintPath(const std::vector<Node>& path_vector, const Node& start,
     }
     grid[start.x_][start.y_] = 3;
     PrintGrid(grid);
+}
+
+void FillPath(const std::vector<Node>& path_vector, const Node& start,
+    const Node& goal, std::vector<std::vector<int>>& grid) {
+    if (path_vector.empty()) {
+        return;
+    }
+    for (size_t i = 0; i < path_vector.size(); i++) {
+        if (CompareCoordinates(goal, path_vector[i])) {
+            grid[path_vector[i].x_][path_vector[i].y_] = 3;
+            while (path_vector[i].id_ != start.id_) {
+                if (path_vector[i].id_ == path_vector[i].pid_) {
+                    break;
+                }
+                for (size_t j = 0; j < path_vector.size(); j++) {
+                    if (path_vector[i].pid_ == path_vector[j].id_) {
+                        i = j;
+                        grid[path_vector[j].x_][path_vector[j].y_] = 3;
+                    }
+                }
+            }
+            break;
+        }
+    }
+    grid[start.x_][start.y_] = 3;
 }
 
 void PrintCost(const std::vector<std::vector<int>>& grid,
